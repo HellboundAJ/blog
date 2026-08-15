@@ -9,8 +9,8 @@ export const Route = createFileRoute("/about")({
       { name: "description", content: "Who Hellbound is: CTF player, writeup hoarder, night owl." },
       { property: "og:title", content: "About — Hellbound" },
       { property: "og:description", content: "CTF player, writeup hoarder, night owl." },
-      { property: "og:image", content: pfp.url },
-      { name: "twitter:image", content: pfp.url },
+      { property: "og:image", content: pfp },
+      { name: "twitter:image", content: pfp },
     ],
   }),
   component: About,
@@ -21,7 +21,7 @@ function About() {
     <PageShell title="About me">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-8 sm:flex-row sm:items-start">
         <img
-          src={pfp.url}
+          src={pfp}
           alt="Hellbound avatar"
           width={190}
           height={190}

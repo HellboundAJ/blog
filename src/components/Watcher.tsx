@@ -49,7 +49,7 @@ export function Watcher() {
           </button>
         )}
         <img
-          src={watcher.url}
+          src={watcher}
           alt=""
           loading="lazy"
           style={{ width: 150, filter: "drop-shadow(0 0 26px rgba(255,60,30,0.32))" }}

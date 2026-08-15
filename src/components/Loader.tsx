@@ -51,7 +51,7 @@ export function Loader() {
             }}
           >
             <img
-              src={eyeball.url}
+              src={eyeball}
               alt=""
               width={92}
               height={31}

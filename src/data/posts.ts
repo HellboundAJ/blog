@@ -10,7 +10,7 @@ import writeupWeb from "@/assets/writeup-web.jpg";
  */
 
 const covers: Record<string, string> = {
-  "writeup-web": writeupWeb.url,
+  "writeup-web": writeupWeb,
 };
 
 export type TocItem = { id: string; heading: string };
@@ -83,7 +83,7 @@ export const posts: Post[] = Object.entries(files)
         .map((t) => t.trim())
         .filter(Boolean),
       excerpt: meta["excerpt"] ?? "",
-      cover: covers[meta["cover"] ?? ""] ?? writeupWeb.url,
+      cover: covers[meta["cover"] ?? ""] ?? writeupWeb,
       toc,
       html: marked.parse(body) as string,
     };

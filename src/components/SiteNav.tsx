@@ -15,7 +15,7 @@ export function SiteNav() {
       <nav className="mx-auto flex max-w-[88rem] flex-col items-center gap-2 px-4 py-3 sm:flex-row sm:justify-between sm:gap-4">
         <Link to="/" className="flex items-center gap-3">
           <img
-            src={heart.url}
+            src={heart}
             alt="Hellbound"
             width={28}
             height={28}
