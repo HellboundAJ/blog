@@ -6,7 +6,7 @@ const links = [
   { to: "/categories", label: "Categories" },
   { to: "/tags", label: "Tags" },
   { to: "/archives", label: "Archives" },
-  { to: "/about", label: "About me" },
+  { to: "/about", label: "About" },
 ] as const;
 
 export function SiteNav() {
