@@ -68,28 +68,28 @@
 }
 
 .dark {
-  --background: oklch(0.13 0.018 25);
+  --background: oklch(0.12 0.026 20);
   --foreground: oklch(0.92 0.012 60);
-  --card: oklch(0.17 0.022 25);
+  --card: oklch(0.16 0.03 20);
   --card-foreground: oklch(0.92 0.012 60);
   --popover: oklch(0.16 0.022 25);
   --popover-foreground: oklch(0.92 0.012 60);
-  --primary: oklch(0.68 0.22 34);
+  --primary: oklch(0.62 0.24 22);
   --primary-foreground: oklch(0.14 0.02 25);
   --secondary: oklch(0.22 0.03 25);
   --secondary-foreground: oklch(0.92 0.012 60);
   --muted: oklch(0.21 0.025 25);
-  --muted-foreground: oklch(0.68 0.04 40);
-  --accent: oklch(0.5 0.19 25);
+  --muted-foreground: oklch(0.7 0.06 30);
+  --accent: oklch(0.48 0.21 20);
   --accent-foreground: oklch(0.96 0.01 60);
   --destructive: oklch(0.6 0.23 20);
   --destructive-foreground: oklch(0.96 0.01 60);
-  --border: oklch(0.28 0.04 28);
-  --input: oklch(0.28 0.04 28);
-  --ring: oklch(0.63 0.21 32);
-  --ember: oklch(0.72 0.19 55);
+  --border: oklch(0.3 0.06 22);
+  --input: oklch(0.3 0.06 22);
+  --ring: oklch(0.6 0.23 22);
+  --ember: oklch(0.66 0.23 30);
   --ash: oklch(0.24 0.02 25);
-  --glow: 0 0 18px -4px oklch(0.63 0.21 32 / 55%);
+  --glow: 0 0 18px -4px oklch(0.6 0.23 22 / 60%);
 }
 
 @layer base {
@@ -218,4 +218,57 @@
 
 @utility flicker {
   animation: flicker 3.2s ease-in-out infinite;
+}
+
+/* Markdown article body (writeups rendered from /content/*.md) */
+.md-body h2 {
+  font-family: var(--font-pixel);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  margin-top: 2.75rem;
+  color: var(--foreground);
+}
+.md-body h3 {
+  font-family: var(--font-pixel);
+  font-size: 0.68rem;
+  margin-top: 2rem;
+  color: var(--foreground);
+}
+.md-body p,
+.md-body li {
+  color: var(--muted-foreground);
+  margin-top: 1rem;
+}
+.md-body ul,
+.md-body ol {
+  margin-top: 0.5rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.md-body a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+.md-body code {
+  color: var(--primary);
+}
+.md-body pre {
+  margin-top: 1.25rem;
+  overflow-x: auto;
+  border: 2px solid var(--border);
+  background-color: var(--card);
+  padding: 1rem;
+  font-size: 0.95rem;
+  color: var(--primary);
+}
+.md-body blockquote {
+  border-left: 3px solid var(--primary);
+  padding-left: 1rem;
+  color: var(--muted-foreground);
+  margin-top: 1.25rem;
+}
+.md-body img {
+  margin-top: 1.5rem;
+  border: 2px solid var(--border);
+  max-width: 100%;
 }
