@@ -55,11 +55,9 @@ function Writeup() {
     post.toc[0]?.id ?? "",
   );
 
-  /*
-   * =========================================================
-   * TOC SCROLL TRACKING
-   * =========================================================
-   */
+  /* =========================================================
+     TOC SCROLL TRACKING
+     ========================================================= */
 
   useEffect(() => {
     const updateActive = () => {
@@ -111,91 +109,44 @@ function Writeup() {
     };
   }, [post]);
 
-  /*
-   * =========================================================
-   * CODE COPY BUTTONS
-   * =========================================================
-   */
+  /* =========================================================
+     CODE COPY
+     ========================================================= */
 
-  /*
- * =========================================================
- * CODE COPY BUTTONS
- * =========================================================
- */
+  const handleCopy = async (
+    event: React.MouseEvent<HTMLElement>,
+  ) => {
+    const target = event.target as HTMLElement;
 
-useEffect(() => {
-  const article = document.querySelector(".md-body");
-
-  if (!article) {
-    return;
-  }
-
-  const buttons =
-    article.querySelectorAll<HTMLButtonElement>(
-      "[data-copy-code]",
-    );
-
-  const handlers = new Map<
-    HTMLButtonElement,
-    (event: MouseEvent) => void
-  >();
-
-  buttons.forEach((button) => {
-    const handler = (event: MouseEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-
-      const details = button.closest("details");
-      const code = details?.querySelector("code");
-
-      if (!code) {
-        return;
-      }
-
-      const text = code.textContent ?? "";
-      const original = button.textContent ?? "Copy";
-
-      /*
-       * Use the synchronous fallback FIRST.
-       * This preserves the browser's user activation.
-       */
-      const textarea =
-        document.createElement("textarea");
-
-      textarea.value = text;
-
-      textarea.setAttribute(
-        "readonly",
-        "",
+    const button =
+      target.closest<HTMLButtonElement>(
+        "[data-copy-code]",
       );
 
-      textarea.style.position = "fixed";
-      textarea.style.left = "-9999px";
-      textarea.style.top = "0";
-      textarea.style.width = "1px";
-      textarea.style.height = "1px";
-      textarea.style.opacity = "0";
+    if (!button) {
+      return;
+    }
 
-      document.body.appendChild(textarea);
+    event.preventDefault();
+    event.stopPropagation();
 
-      textarea.focus();
-      textarea.select();
+    const details = button.closest("details");
+    const code = details?.querySelector("code");
 
-      let copied = false;
+    if (!code) {
+      return;
+    }
 
-      try {
-        copied = document.execCommand("copy");
-      } catch {
-        copied = false;
-      }
+    const text = code.textContent ?? "";
+    const original = button.textContent ?? "Copy";
 
-      document.body.removeChild(textarea);
+    try {
+      if (
+        navigator.clipboard &&
+        window.isSecureContext
+      ) {
+        await navigator.clipboard.writeText(text);
 
-      /*
-       * If the synchronous method worked,
-       * we're done.
-       */
-      if (copied) {
         button.textContent = "Copied!";
 
         window.setTimeout(() => {
@@ -204,71 +155,52 @@ useEffect(() => {
 
         return;
       }
+    } catch {
+      // Continue to fallback.
+    }
 
-      /*
-       * Otherwise try the modern Clipboard API.
-       */
-      if (
-        navigator.clipboard &&
-        window.isSecureContext
-      ) {
-        navigator.clipboard
-          .writeText(text)
-          .then(() => {
-            button.textContent = "Copied!";
+    const textarea =
+      document.createElement("textarea");
 
-            window.setTimeout(() => {
-              button.textContent = original;
-            }, 1200);
-          })
-          .catch(() => {
-            button.textContent = "Failed";
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
 
-            window.setTimeout(() => {
-              button.textContent = original;
-            }, 1200);
-          });
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    textarea.style.top = "0";
+    textarea.style.width = "1px";
+    textarea.style.height = "1px";
+    textarea.style.opacity = "0";
 
-        return;
-      }
+    document.body.appendChild(textarea);
 
-      button.textContent = "Failed";
+    textarea.focus();
+    textarea.select();
 
-      window.setTimeout(() => {
-        button.textContent = original;
-      }, 1200);
-    };
+    let copied = false;
 
-    handlers.set(button, handler);
+    try {
+      copied = document.execCommand("copy");
+    } catch {
+      copied = false;
+    }
 
-    button.addEventListener(
-      "click",
-      handler,
-    );
-  });
+    document.body.removeChild(textarea);
 
-  return () => {
-    handlers.forEach(
-      (handler, button) => {
-        button.removeEventListener(
-          "click",
-          handler,
-        );
-      },
-    );
+    button.textContent = copied
+      ? "Copied!"
+      : "Failed";
+
+    window.setTimeout(() => {
+      button.textContent = original;
+    }, 1200);
   };
-}, [post]);
 
   return (
     <>
       <main className="relative z-10 mx-auto w-full max-w-[88rem] px-4 py-12">
 
-        {/* =================================================
-            WRITEUP HEADER
-            ================================================= */}
-
         <header className="text-center">
-
           <p className="font-mono text-[11px] text-muted-foreground">
             {post.date} · {post.category}
           </p>
@@ -280,21 +212,11 @@ useEffect(() => {
           <p className="mx-auto mt-4 max-w-3xl font-mono text-lg leading-relaxed text-muted-foreground">
             {post.excerpt}
           </p>
-
         </header>
-
-        {/* =================================================
-            CONTENT + TOC
-            ================================================= */}
 
         <div className="mt-12 gap-10 lg:flex lg:items-start">
 
-          {/* =================================================
-              TABLE OF CONTENTS
-              ================================================= */}
-
           <aside className="min-w-0 shrink-0 lg:sticky lg:top-24 lg:w-72">
-
             <nav className="pixel-border min-w-0 max-w-full overflow-hidden bg-card p-4">
 
               <p className="font-pixel text-[8px] text-muted-foreground">
@@ -305,44 +227,41 @@ useEffect(() => {
 
                 {post.toc.map((item) => (
                   <li
-  key={item.id}
-  className="min-w-0 max-w-full"
-  style={{
-    marginLeft: `${Math.min((item.level - 2) * 20, 40)}px`,
-  }}
->
-
+                    key={item.id}
+                    className="min-w-0 max-w-full"
+                    style={{
+                      marginLeft:
+                        `${Math.min(
+                          (item.level - 2) * 20,
+                          40,
+                        )}px`,
+                    }}
+                  >
                     <a
-  href={`#${item.id}`}
-  className={`
-    block
-    min-w-0
-    max-w-full
-    border-l-2
-    pl-3
-    transition-colors
-    hover:text-primary
-    ${
-      active === item.id
-        ? "border-primary text-primary"
-        : "border-border text-muted-foreground"
-    }
-  `}
->
-  {item.heading}
-</a>
-
+                      href={`#${item.id}`}
+                      className={`
+                        block
+                        min-w-0
+                        max-w-full
+                        border-l-2
+                        pl-3
+                        transition-colors
+                        hover:text-primary
+                        ${
+                          active === item.id
+                            ? "border-primary text-primary"
+                            : "border-border text-muted-foreground"
+                        }
+                      `}
+                    >
+                      {item.heading}
+                    </a>
                   </li>
                 ))}
 
               </ul>
 
-              {/* =================================================
-                  TAGS
-                  ================================================= */}
-
               <div className="mt-5 flex flex-wrap gap-2">
-
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
@@ -351,26 +270,20 @@ useEffect(() => {
                     #{tag}
                   </span>
                 ))}
-
               </div>
 
             </nav>
-
           </aside>
-
-          {/* =================================================
-              MARKDOWN ARTICLE
-              ================================================= */}
 
           <article
             className="md-body mt-12 min-w-0 flex-1 lg:mt-0"
+            onClick={handleCopy}
             dangerouslySetInnerHTML={{
               __html: post.html,
             }}
           />
 
         </div>
-
       </main>
 
       <Watcher />
