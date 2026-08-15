@@ -12,7 +12,7 @@ const links = [
 export function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b-2 border-border bg-background/90 backdrop-blur">
-      <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
+      <nav className="mx-auto flex max-w-[88rem] items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-3">
           <img
             src={heart.url}
