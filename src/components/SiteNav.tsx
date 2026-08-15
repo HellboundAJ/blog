@@ -17,13 +17,13 @@ export function SiteNav() {
           <img
             src={heart.url}
             alt="Hellbound"
-            width={34}
-            height={34}
-            className="pixelated rotate-360 h-[34px] w-[34px] object-contain"
+            width={38}
+            height={38}
+            className="pixelated flip360 h-[38px] w-[38px] object-contain"
           />
-          <span className="font-pixel text-[11px] text-foreground">Hellbound</span>
+          <span className="font-pixel text-[13px] text-foreground">Hellbound</span>
         </Link>
-        <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 font-pixel text-[9px]">
+        <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 font-pixel text-[11px]">
           {links.map((l) => (
             <li key={l.to}>
               <Link
@@ -37,6 +37,7 @@ export function SiteNav() {
             </li>
           ))}
         </ul>
+
       </nav>
     </header>
   );
