@@ -30,7 +30,7 @@ function Index() {
         <p className="mt-8 font-pixel text-[8px] text-muted-foreground">▼ scroll ▼</p>
       </section>
 
-      <section className="mx-auto w-full max-w-5xl px-4 pb-10">
+      <section className="mx-auto w-full max-w-[88rem] px-4 pb-10">
         <h2 className="mb-8 text-center text-sm text-foreground">Latest writeups</h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((p) => (
