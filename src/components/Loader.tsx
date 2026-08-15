@@ -8,10 +8,10 @@ import eyeball from "@/assets/eyeball.png.asset.json";
  */
 const TRAIL = [
   { delay: "0s", opacity: 1, scale: 1 },
-  { delay: "-0.06s", opacity: 0.5, scale: 0.92 },
-  { delay: "-0.12s", opacity: 0.22, scale: 0.82 },
-  { delay: "-0.18s", opacity: 0.08, scale: 0.7 },
+  { delay: "-0.05s", opacity: 0.35, scale: 0.94 },
+  { delay: "-0.1s", opacity: 0.15, scale: 0.86 },
 ];
+
 
 export function Loader() {
   const [gone, setGone] = useState(false);
