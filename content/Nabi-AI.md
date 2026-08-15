@@ -3,13 +3,13 @@ title: "Nabi-Ai"
 date: "2026/08/15"
 category: "Web"
 tags: "ctf"
-cover: "writeup-web"
+cover: "lock.gif"
 excerpt: "hello this is a weird chall"
 ---
 
 # Challenge Overview
 
-![[Pasted image 20260810111715.png]]
+![Challenge screenshot](1img.png)
 
 From the config.hcl nd the urls given, we can see that to read the flag, we need to send the FLAG_API_KEY with "x-api-token header"
 
@@ -17,7 +17,7 @@ From the config.hcl nd the urls given, we can see that to read the flag, we need
 # Step 1 (Stealing the api key for OpenBao)
 Opening the instance gives us 3 different urls
 
-![[Pasted image 20260810111754.png]]
+![Challenge screenshot](2img.png)
 
 opening the challenge link and viewing the **sourcemapped code,**
 
@@ -52,11 +52,11 @@ we can see there is a optional field called "baoAddr" (used to set openbao url),
 
 now we can send a normal message and modify and add the boaAddr field with our webhook :-
 
-![[Pasted image 20260810113500.png]]
+![Challenge screenshot](3img.png)
 
 Sending the message will show a internal server error, with a request to our webhook
 
-![[Pasted image 20260810113638.png]]
+![Challenge screenshot](4img.png)
 
 # Step 2 (Stealing the api key for the flag service)
 We have successfully found the api key for OpenBao server --> `nabi-local-app-token-9c3e680272d5ca0ac9112f7b71d1bf`
@@ -64,7 +64,7 @@ We have successfully found the api key for OpenBao server --> `nabi-local-app-to
 
 Now we can use this to trigger the BaoServer to leak the flag api key.
 
-![[Pasted image 20260810114553.png]]
+![Challenge screenshot](5img.png)
 
 
 That shd give the flag api key -->"sk-flag-44569147aa693f5154e7"
@@ -73,7 +73,7 @@ That shd give the flag api key -->"sk-flag-44569147aa693f5154e7"
 
 Now we use the final key to send a req with a "x-api-token" header
 
-![[Pasted image 20260810114746.png]]
+![Challenge screenshot](6img.png)
 
 
 TLDR;

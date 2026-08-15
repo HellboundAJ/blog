@@ -1,19 +1,10 @@
 import { marked } from "marked";
-import writeupWeb from "@/assets/writeup-web.jpg";
 
-/**
- * Posts are plain markdown files in /content.
- * Drop a new .md file in there, push it, and the post + its table of
- * contents show up automatically. Nothing else to edit.
- *
- * Frontmatter keys: title, date, category, tags, cover, excerpt
- */
-
-const covers: Record<string, string> = {
-  "writeup-web": writeupWeb,
+export type TocItem = {
+  id: string;
+  heading: string;
+  level: number;
 };
-
-export type TocItem = { id: string; heading: string; level:number; };
 
 export type Post = {
   slug: string;
@@ -34,30 +25,51 @@ const slugify = (s: string) =>
     .trim()
     .replace(/\s+/g, "-");
 
-marked.use({
-  renderer: {
-    heading(this: any, token: any) {
-      const text = this.parser.parseInline(token.tokens);
-      const id = slugify(token.text);
-      return `<h${token.depth} id="${id}" class="scroll-mt-28">${text}</h${token.depth}>\n`;
-    },
-  },
-});
-
 function parseFrontmatter(raw: string) {
   const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(raw);
   const meta: Record<string, string> = {};
+
   if (!match) return { meta, body: raw };
+
   for (const line of (match[1] ?? "").split(/\r?\n/)) {
     const i = line.indexOf(":");
     if (i === -1) continue;
+
     meta[line.slice(0, i).trim()] = line
       .slice(i + 1)
       .trim()
       .replace(/^["']|["']$/g, "");
   }
-  return { meta, body: raw.slice(match[0].length) };
+
+  return {
+    meta,
+    body: raw.slice(match[0].length),
+  };
 }
+
+function processImages(body: string, slug: string) {
+  return body.replace(
+    /!\[([^\]]*)\]\((?!https?:\/\/|\/|data:)([^)]+)\)/g,
+    (_, alt, filename) => {
+      const imagePath = `/blog/writeups/${slug}/${encodeURIComponent(
+        filename.trim(),
+      )}`;
+
+      return `![${alt}](${imagePath})`;
+    },
+  );
+}
+
+marked.use({
+  renderer: {
+    heading(this: any, token: any) {
+      const text = this.parser.parseInline(token.tokens);
+      const id = slugify(token.text);
+
+      return `<h${token.depth} id="${id}" class="scroll-mt-28">${text}</h${token.depth}>\n`;
+    },
+  },
+});
 
 const files = import.meta.glob("../../content/*.md", {
   query: "?raw",
@@ -68,14 +80,28 @@ const files = import.meta.glob("../../content/*.md", {
 export const posts: Post[] = Object.entries(files)
   .map(([path, raw]) => {
     const { meta, body } = parseFrontmatter(raw);
-    const slug = path.split("/").pop()!.replace(/\.md$/, "");
-    const toc: TocItem[] = [...body.matchAll(/^(#{1,6})\s+(.+)$/gm)].map(
-  (m) => ({
-    heading: (m[2] ?? "").trim(),
-    id: slugify((m[2] ?? "").trim()),
-    level: m[1]?.length ?? 2,
-  }),
-);
+
+    const slug = path
+      .split("/")
+      .pop()!
+      .replace(/\.md$/, "");
+
+    const toc: TocItem[] = [
+      ...body.matchAll(/^(#{1,6})\s+(.+)$/gm),
+    ].map((m) => ({
+      heading: (m[2] ?? "").trim(),
+      id: slugify((m[2] ?? "").trim()),
+      level: m[1]?.length ?? 1,
+    }));
+
+    const processedBody = processImages(body, slug);
+
+    const coverName = meta["cover"]?.trim();
+
+    const cover = coverName
+      ? `/blog/writeups/${slug}/${encodeURIComponent(coverName)}`
+      : "";
+
     return {
       slug,
       title: meta["title"] ?? slug,
@@ -86,11 +112,12 @@ export const posts: Post[] = Object.entries(files)
         .map((t) => t.trim())
         .filter(Boolean),
       excerpt: meta["excerpt"] ?? "",
-      cover: covers[meta["cover"] ?? ""] ?? writeupWeb,
+      cover,
       toc,
-      html: marked.parse(body) as string,
+      html: marked.parse(processedBody) as string,
     };
   })
   .sort((a, b) => b.date.localeCompare(a.date));
 
-export const getPost = (slug: string) => posts.find((p) => p.slug === slug);
+export const getPost = (slug: string) =>
+  posts.find((p) => p.slug === slug);
