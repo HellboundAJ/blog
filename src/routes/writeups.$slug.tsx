@@ -65,10 +65,10 @@ function Writeup() {
     <>
       <main className="relative z-10 mx-auto w-full max-w-[88rem] px-4 py-12">
         <header className="text-center">
-          <p className="font-pixel text-[8px] text-muted-foreground">
+          <p className="font-pixel text-[11px] text-muted-foreground">
             {post.date} · {post.category}
           </p>
-          <h1 className="ember-text mx-auto mt-4 max-w-4xl text-base leading-relaxed sm:text-lg">
+          <h1 className="ember-text mx-auto mt-4 max-w-4xl text-xl leading-relaxed sm:text-2xl">
             {post.title}
           </h1>
           <p className="mx-auto mt-4 max-w-3xl text-muted-foreground">{post.excerpt}</p>

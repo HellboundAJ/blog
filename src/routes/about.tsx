@@ -6,7 +6,7 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — Hellbound" },
-      { name: "description", content: "Who Hellbound is: CTF player, writeup hoarder, night owl." },
+      { name: "description", content: "Who Hellbound is: CTF player, loves web, night owl." },
       { property: "og:title", content: "About — Hellbound" },
       { property: "og:description", content: "CTF player, writeup hoarder, night owl." },
       { property: "og:image", content: pfp },
