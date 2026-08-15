@@ -1,5 +1,12 @@
 
---- title: My New Writeup date: 2026/09/01 category: Pwn tags: pwn, heap cover: writeup-web excerpt: One line shown on the card. ---
+---
+title: "Nabi-Ai"
+date: "2026/08/15"
+category: "Web"
+tags: "ctf"
+cover: "writeup-web"
+excerpt: "hello this is a weird chall"
+---
 
 # Challenge Overview
 
