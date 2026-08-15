@@ -48,7 +48,7 @@ function parseFrontmatter(raw: string) {
   const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(raw);
   const meta: Record<string, string> = {};
   if (!match) return { meta, body: raw };
-  for (const line of match[1].split(/\r?\n/)) {
+  for (const line of (match[1] ?? "").split(/\r?\n/)) {
     const i = line.indexOf(":");
     if (i === -1) continue;
     meta[line.slice(0, i).trim()] = line
@@ -70,20 +70,20 @@ export const posts: Post[] = Object.entries(files)
     const { meta, body } = parseFrontmatter(raw);
     const slug = path.split("/").pop()!.replace(/\.md$/, "");
     const toc: TocItem[] = [...body.matchAll(/^##\s+(.+)$/gm)].map((m) => ({
-      heading: m[1].trim(),
-      id: slugify(m[1].trim()),
+      heading: (m[1] ?? "").trim(),
+      id: slugify((m[1] ?? "").trim()),
     }));
     return {
       slug,
-      title: meta.title ?? slug,
-      date: meta.date ?? "",
-      category: meta.category ?? "Misc",
-      tags: (meta.tags ?? "")
+      title: meta["title"] ?? slug,
+      date: meta["date"] ?? "",
+      category: meta["category"] ?? "Misc",
+      tags: (meta["tags"] ?? "")
         .split(",")
         .map((t) => t.trim())
         .filter(Boolean),
-      excerpt: meta.excerpt ?? "",
-      cover: covers[meta.cover ?? ""] ?? writeupWeb.url,
+      excerpt: meta["excerpt"] ?? "",
+      cover: covers[meta["cover"] ?? ""] ?? writeupWeb.url,
       toc,
       html: marked.parse(body) as string,
     };
