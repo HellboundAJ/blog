@@ -38,14 +38,14 @@ export function Loader() {
       <div
         className="relative"
         aria-hidden
-        style={{ width: "min(9rem, 45vw)", height: "min(9rem, 45vw)" }}
+        style={{ width: "min(11rem, 55vw)", height: "min(11rem, 55vw)" }}
       >
         {TRAIL.map((t, i) => (
           <div
             key={i}
             className="absolute inset-0"
             style={{
-              animation: "orbit 1.2s linear infinite",
+              animation: "orbit 1.3s linear infinite",
               animationDelay: t.delay,
               opacity: t.opacity,
             }}
@@ -55,14 +55,19 @@ export function Loader() {
               alt=""
               width={92}
               height={31}
-              className="pixelated absolute left-1/2 top-0 w-[58%] max-w-[92px]"
+              className="pixelated absolute left-1/2 top-0 w-[52%] max-w-[92px]"
               style={{
                 transform: `translate(-50%, -50%) scaleX(-1) scale(${t.scale})`,
+                filter:
+                  i === 0
+                    ? "drop-shadow(0 0 10px oklch(0.55 0.22 25 / 0.65))"
+                    : undefined,
               }}
             />
           </div>
         ))}
       </div>
+
     </div>
   );
 }
