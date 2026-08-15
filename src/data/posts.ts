@@ -1,4 +1,5 @@
 import { marked } from "marked";
+import hljs from "highlight.js/lib/common";
 
 export type TocItem = {
   id: string;
@@ -59,14 +60,45 @@ function processImages(body: string, slug: string) {
     },
   );
 }
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 
 marked.use({
   renderer: {
     heading(this: any, token: any) {
       const text = this.parser.parseInline(token.tokens);
       const id = slugify(token.text);
-
       return `<h${token.depth} id="${id}" class="scroll-mt-28">${text}</h${token.depth}>\n`;
+    },
+
+    code(token: any) {
+      const code = token.text ?? "";
+      const language = (token.lang ?? "text").trim().split(/\s+/)[0] || "text";
+
+      let highlighted = escapeHtml(code);
+
+      if (language !== "text" && hljs.getLanguage(language)) {
+        highlighted = hljs.highlight(code, {
+          language,
+        }).value;
+      }
+
+      const label = language.toUpperCase();
+
+      return `
+<details class="code-block" open>
+  <summary>
+    <span class="code-language">${escapeHtml(label)}</span>
+    <button type="button" data-copy-code>Copy</button>
+  </summary>
+  <pre><code class="language-${escapeHtml(language)}">${highlighted}</code></pre>
+</details>
+`;
     },
   },
 });

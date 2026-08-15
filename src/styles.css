@@ -6,8 +6,8 @@
 
 /*
  * Hellbound design system.
- * Dark mode = hell (ember, ash, blood). Light mode = calm paper (no hell).
- * All colors in oklch. Never hardcode colors in components.
+ * Dark mode = hell (ember, ash, blood).
+ * Light mode = calm paper.
  */
 
 @theme inline {
@@ -15,6 +15,7 @@
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -36,13 +37,14 @@
   --color-ring: var(--ring);
   --color-ember: var(--ember);
   --color-ash: var(--ash);
+
   --font-pixel: "Press Start 2P", monospace;
   --font-mono: "JetBrains Mono", monospace;
 }
 
 :root {
   --radius: 0.25rem;
-  /* light mode: calm paper, deliberately NOT hell themed */
+
   --background: oklch(0.97 0.008 95);
   --foreground: oklch(0.24 0.02 250);
   --card: oklch(0.995 0.004 95);
@@ -101,13 +103,13 @@
     scrollbar-color: var(--primary) var(--ash);
   }
 
-body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  line-height: 1.7;
-}
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
 
   h1,
   h2,
@@ -123,19 +125,21 @@ body {
     color: var(--primary-foreground);
   }
 
-  /* pixel scrollbar */
   ::-webkit-scrollbar {
     width: 14px;
     height: 14px;
   }
+
   ::-webkit-scrollbar-track {
     background: var(--ash);
     border-left: 2px solid var(--border);
   }
+
   ::-webkit-scrollbar-thumb {
     background: var(--primary);
     border: 3px solid var(--ash);
   }
+
   ::-webkit-scrollbar-thumb:hover {
     background: var(--ember);
   }
@@ -154,6 +158,7 @@ body {
     transform 0.18s steps(3),
     box-shadow 0.18s steps(3),
     border-color 0.18s;
+
   &:hover {
     transform: translate(-3px, -3px);
     border-color: var(--primary);
@@ -191,11 +196,11 @@ body {
   from {
     transform: rotateY(0deg);
   }
+
   to {
     transform: rotateY(360deg);
   }
 }
-
 
 @keyframes orbit {
   to {
@@ -208,9 +213,11 @@ body {
   100% {
     opacity: 1;
   }
+
   45% {
     opacity: 0.72;
   }
+
   70% {
     opacity: 0.9;
   }
@@ -220,7 +227,11 @@ body {
   animation: flicker 3.2s ease-in-out infinite;
 }
 
-/* Markdown article body */
+
+/* =========================================================
+   MARKDOWN ARTICLE
+   ========================================================= */
+
 .md-body {
   font-family: var(--font-mono);
   font-size: 1.08rem;
@@ -228,53 +239,84 @@ body {
   letter-spacing: 0;
 }
 
-.md-body h1,
-.md-body h2,
-.md-body h3,
-.md-body h4,
-.md-body h5,
-.md-body h6 {
-  font-family: var(--font-pixel);
-  color: var(--foreground);
-  line-height: 1.5;
-}
 
+/* # Main headings
+   Only # gets the vertical accent bar. */
 .md-body h1 {
-  font-size: 1.44rem;
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: var(--foreground);
+
+  border-left: 4px solid var(--primary);
+  padding-left: 0.8rem;
+
   margin-top: 3.5rem;
   margin-bottom: 1.5rem;
 }
 
+
+/* ## Section headings */
 .md-body h2 {
-  font-size: 1.24rem;
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: var(--foreground);
+
   margin-top: 3rem;
   margin-bottom: 1.25rem;
 }
 
+
+/* ### Sub-section headings */
 .md-body h3 {
-  font-size: 0.9rem;
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--foreground);
+
   margin-top: 2.5rem;
   margin-bottom: 1rem;
 }
 
+
 .md-body h4,
 .md-body h5,
 .md-body h6 {
-  font-size: 0.8rem;
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  color: var(--foreground);
+  line-height: 1.5;
+
+  font-size: 0.9rem;
+
   margin-top: 2rem;
   margin-bottom: 0.9rem;
 }
 
+
+/* Normal Markdown paragraphs */
 .md-body p {
+  font-family: var(--font-mono);
+  font-size: 1.08rem;
+  font-weight: 400;
   color: var(--foreground);
-  font-size: 1rem;
   line-height: 1.85;
+
   margin-top: 1.25rem;
   max-width: 80ch;
 }
 
+
+/* Lists */
 .md-body li {
+  font-family: var(--font-mono);
+  font-size: 1.08rem;
   color: var(--foreground);
+  line-height: 1.8;
   margin-top: 0.5rem;
 }
 
@@ -292,39 +334,189 @@ body {
   list-style: decimal;
 }
 
+
+/* Links */
 .md-body a {
   color: var(--primary);
   text-decoration: underline;
 }
 
+
+/* Inline code */
 .md-body code {
   color: var(--primary);
+  font-family: var(--font-mono);
   font-size: 0.95em;
 }
 
-.md-body pre {
+
+/* =========================================================
+   COLLAPSIBLE CODE BLOCKS
+   ========================================================= */
+
+.md-body .code-block {
   margin-top: 1.5rem;
-  overflow-x: auto;
   border: 2px solid var(--border);
-  background-color: var(--card);
-  padding: 1.25rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  background: var(--card);
+  box-shadow: 4px 4px 0 0 var(--ash);
+}
+
+
+/* Header */
+.md-body .code-block summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  cursor: pointer;
+
+  padding: 0.7rem 1rem;
+
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+
+  color: var(--foreground);
+
+  user-select: none;
+}
+
+
+/* Hover */
+.md-body .code-block summary:hover {
   color: var(--primary);
 }
 
+
+/* Native arrow */
+.md-body .code-block summary::marker {
+  color: var(--primary);
+}
+
+
+/* Language name */
+.md-body .code-language {
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+
+/* Copy button */
+.md-body .code-block button {
+  border: 1px solid var(--border);
+  background: var(--background);
+
+  color: var(--muted-foreground);
+
+  padding: 0.25rem 0.6rem;
+
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+
+  cursor: pointer;
+}
+
+.md-body .code-block button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+
+/* Divider when opened */
+.md-body .code-block[open] summary {
+  border-bottom: 2px solid var(--border);
+}
+
+
+/* Code itself */
+.md-body .code-block pre {
+  margin: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  padding: 1.25rem;
+
+  overflow-x: auto;
+
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.65;
+
+  color: var(--foreground);
+}
+
+.md-body .code-block pre code {
+  color: var(--foreground);
+}
+
+
+/* =========================================================
+   BASIC HIGHLIGHT.JS COLORS
+   ========================================================= */
+
+.md-body .hljs-comment,
+.md-body .hljs-quote {
+  color: var(--muted-foreground);
+}
+
+.md-body .hljs-keyword,
+.md-body .hljs-selector-tag,
+.md-body .hljs-literal,
+.md-body .hljs-section,
+.md-body .hljs-link {
+  color: var(--primary);
+}
+
+.md-body .hljs-string,
+.md-body .hljs-attr,
+.md-body .hljs-template-tag,
+.md-body .hljs-template-variable {
+  color: var(--ember);
+}
+
+.md-body .hljs-number,
+.md-body .hljs-symbol,
+.md-body .hljs-bullet {
+  color: var(--primary);
+}
+
+.md-body .hljs-title,
+.md-body .hljs-title.function_,
+.md-body .hljs-title.class_ {
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.md-body .hljs-built_in,
+.md-body .hljs-type {
+  color: var(--primary);
+}
+
+
+/* Blockquotes */
 .md-body blockquote {
   border-left: 3px solid var(--primary);
+
   padding-left: 1rem;
+
   color: var(--muted-foreground);
+
   margin-top: 1.5rem;
 }
 
+
+/* Images inside writeups */
 .md-body img {
   display: block;
+
   margin-top: 1.75rem;
   margin-bottom: 1.75rem;
+
   border: 2px solid var(--border);
+
   max-width: 100%;
   height: auto;
 }
