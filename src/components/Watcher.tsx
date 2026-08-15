@@ -2,19 +2,18 @@ import { useEffect, useState } from "react";
 import watcher from "@/assets/watcher.png.asset.json";
 
 /**
- * The Watcher peeks in from the right edge once the reader has scrolled
- * a while into a page. Only part of him is ever visible, and he can be dismissed.
+ * The Watcher rises from the bottom-right once the reader is deep enough
+ * into a page. Once he shows up he stays until dismissed with the X.
  */
 export function Watcher() {
-  const [peek, setPeek] = useState(0); // 0..1
+  const [shown, setShown] = useState(false);
   const [closed, setClosed] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const p = max > 0 ? window.scrollY / max : 0;
-      // starts creeping in at 25% scrolled, fully peeked at 55%
-      setPeek(Math.max(0, Math.min(1, (p - 0.25) / 0.3)));
+      if (p > 0.3) setShown(true);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -23,36 +22,33 @@ export function Watcher() {
 
   if (closed) return null;
 
-  const visible = peek > 0.02;
-
   return (
     <div
-      aria-hidden={!visible}
-      className="pointer-events-none fixed bottom-0 right-0 z-30 hidden select-none md:block"
+      aria-hidden={!shown}
+      className="pointer-events-none fixed bottom-0 right-4 z-30 hidden select-none md:block"
       style={{
-        transform: `translateX(${(1 - peek) * 100}%)`,
-        opacity: visible ? 1 : 0,
-        transition: "transform 700ms cubic-bezier(.22,.8,.2,1), opacity 500ms linear",
+        transform: shown ? "translateY(0)" : "translateY(110%)",
+        opacity: shown ? 1 : 0,
+        transition: "transform 1100ms cubic-bezier(.22,.8,.2,1), opacity 700ms linear",
       }}
     >
-      <div className="relative w-[190px] overflow-hidden">
-        {visible && (
+      <div className="relative w-[110px]">
+        {shown && (
           <button
             onClick={() => setClosed(true)}
             aria-label="Dismiss the watcher"
-            className="pointer-events-auto absolute left-1 top-1 z-10 border-2 border-border bg-card px-2 py-0.5 font-pixel text-[8px] text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+            className="pointer-events-auto absolute -left-1 top-0 z-10 border-2 border-border bg-card px-1.5 py-0.5 font-pixel text-[7px] text-muted-foreground transition-colors hover:border-primary hover:text-primary"
           >
             X
           </button>
         )}
-        {/* only the left half of him ever slides into frame */}
         <img
           src={watcher.url}
           alt=""
-          width={330}
-          height={520}
+          width={110}
+          height={173}
           loading="lazy"
-          className="w-[330px] max-w-none translate-y-6 opacity-90 drop-shadow-[0_0_30px_rgba(255,120,40,0.25)]"
+          className="w-[110px] opacity-90 drop-shadow-[0_0_24px_rgba(255,120,40,0.25)]"
         />
       </div>
     </div>
