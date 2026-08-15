@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ArchivesRouteImport } from './routes/archives'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as TagsRouteImport } from './routes/tags'
+import { Route as WriteupsSlugRouteImport } from './routes/writeups.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const TagsRoute = TagsRouteImport.update({
   path: '/tags',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WriteupsSlugRoute = WriteupsSlugRouteImport.update({
+  id: '/writeups/$slug',
+  path: '/writeups/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/archives': typeof ArchivesRoute
   '/categories': typeof CategoriesRoute
   '/tags': typeof TagsRoute
+  '/writeups/$slug': typeof WriteupsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/archives': typeof ArchivesRoute
   '/categories': typeof CategoriesRoute
   '/tags': typeof TagsRoute
+  '/writeups/$slug': typeof WriteupsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,22 @@ export interface FileRoutesById {
   '/archives': typeof ArchivesRoute
   '/categories': typeof CategoriesRoute
   '/tags': typeof TagsRoute
+  '/writeups/$slug': typeof WriteupsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/archives' | '/categories' | '/tags'
+  fullPaths:
+    '/' | '/about' | '/archives' | '/categories' | '/tags' | '/writeups/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/archives' | '/categories' | '/tags'
-  id: '__root__' | '/' | '/about' | '/archives' | '/categories' | '/tags'
+  to: '/' | '/about' | '/archives' | '/categories' | '/tags' | '/writeups/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/archives'
+    | '/categories'
+    | '/tags'
+    | '/writeups/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +94,7 @@ export interface RootRouteChildren {
   ArchivesRoute: typeof ArchivesRoute
   CategoriesRoute: typeof CategoriesRoute
   TagsRoute: typeof TagsRoute
+  WriteupsSlugRoute: typeof WriteupsSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TagsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/writeups/$slug': {
+      id: '/writeups/$slug'
+      path: '/writeups/$slug'
+      fullPath: '/writeups/$slug'
+      preLoaderRoute: typeof WriteupsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +150,7 @@ const rootRouteChildren: RootRouteChildren = {
   ArchivesRoute: ArchivesRoute,
   CategoriesRoute: CategoriesRoute,
   TagsRoute: TagsRoute,
+  WriteupsSlugRoute: WriteupsSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
