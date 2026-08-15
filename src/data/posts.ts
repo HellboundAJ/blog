@@ -13,7 +13,7 @@ const covers: Record<string, string> = {
   "writeup-web": writeupWeb,
 };
 
-export type TocItem = { id: string; heading: string };
+export type TocItem = { id: string; heading: string; level:number; };
 
 export type Post = {
   slug: string;
@@ -69,10 +69,13 @@ export const posts: Post[] = Object.entries(files)
   .map(([path, raw]) => {
     const { meta, body } = parseFrontmatter(raw);
     const slug = path.split("/").pop()!.replace(/\.md$/, "");
-    const toc: TocItem[] = [...body.matchAll(/^##\s+(.+)$/gm)].map((m) => ({
-      heading: (m[1] ?? "").trim(),
-      id: slugify((m[1] ?? "").trim()),
-    }));
+    const toc: TocItem[] = [...body.matchAll(/^(#{2,6})\s+(.+)$/gm)].map(
+  (m) => ({
+    heading: (m[2] ?? "").trim(),
+    id: slugify((m[2] ?? "").trim()),
+    level: m[1]?.length ?? 2,
+  }),
+);
     return {
       slug,
       title: meta["title"] ?? slug,

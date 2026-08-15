@@ -57,13 +57,6 @@ function Writeup() {
           <p className="mx-auto mt-4 max-w-3xl text-muted-foreground">{post.excerpt}</p>
         </header>
 
-        <img
-          src={post.cover}
-          alt={`Cover art for ${post.title}`}
-          width={1088}
-          height={608}
-          className="pixel-border mt-8 w-full object-cover"
-        />
 
         <div className="mt-12 gap-10 lg:flex lg:items-start">
           <aside className="shrink-0 lg:sticky lg:top-24 lg:w-72">
@@ -71,7 +64,12 @@ function Writeup() {
               <p className="font-pixel text-[8px] text-muted-foreground">TABLE OF CONTENTS</p>
               <ul className="mt-4 space-y-2 text-sm">
                 {post.toc.map((s) => (
-                  <li key={s.id}>
+                  <li
+                    key={s.id}
+                    style={{
+                      marginLeft: `${(s.level - 2) * 20}px`,
+                    }}
+                  >
                     <a
                       href={`#${s.id}`}
                       className={`block border-l-2 pl-3 transition-colors hover:text-primary ${
