@@ -18,12 +18,13 @@ export function Loader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background transition-opacity duration-500 ${
+      style={{ backgroundColor: "var(--background)" }}
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center transition-opacity duration-500 ${
         fading ? "opacity-0" : "opacity-100"
       }`}
     >
-      <div className="relative h-56 w-56">
-        <div className="absolute inset-6 rounded-full border-2 border-dashed border-border" />
+      <div className="relative h-64 w-64">
+        <div className="absolute inset-4 rounded-full border-2 border-dashed border-border" />
         <div
           className="absolute inset-0"
           style={{ animation: "orbit 1.4s linear infinite" }}
@@ -32,15 +33,16 @@ export function Loader() {
           <img
             src={eyeball.url}
             alt=""
-            width={120}
-            height={41}
-            className="pixelated absolute left-1/2 top-0 w-[120px] -translate-x-1/2"
+            width={150}
+            height={51}
+            className="pixelated absolute left-1/2 top-0 w-[150px] -translate-x-1/2 -translate-y-4 drop-shadow-[0_0_18px_rgba(255,70,20,0.6)]"
           />
         </div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="h-16 w-16 rounded-full bg-primary/25 blur-xl" />
+          <div className="h-24 w-24 rounded-full bg-primary/30 blur-2xl" />
         </div>
       </div>
+
       <p className="ember-text mt-6 font-pixel text-[10px] tracking-widest">
         SUMMONING<span className="flicker">...</span>
       </p>
