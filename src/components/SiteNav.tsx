@@ -17,9 +17,9 @@ export function SiteNav() {
           <img
             src={heart.url}
             alt="Hellbound"
-            width={38}
-            height={38}
-            className="pixelated flip360 h-[38px] w-[38px] object-contain"
+            width={28}
+            height={28}
+            className="pixelated flip360 h-[28px] w-[28px] object-contain"
           />
           <span className="font-pixel text-[13px] text-foreground">Hellbound</span>
         </Link>

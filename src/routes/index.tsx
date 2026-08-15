@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { posts } from "@/data/posts";
+import { SearchBar, usePostSearch } from "@/components/PostSearch";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,6 +21,17 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const list = posts.map(({ slug, title, date, category, tags, excerpt, cover }) => ({
+    slug,
+    title,
+    date,
+    category,
+    tags,
+    excerpt,
+    cover,
+  }));
+  const { q, setQ, hits, loading } = usePostSearch(list);
+
   return (
     <main className="relative z-10">
       <section className="flex min-h-[62vh] flex-col items-center justify-center px-4 text-center">
@@ -31,9 +43,13 @@ function Index() {
       </section>
 
       <section className="mx-auto w-full max-w-[88rem] px-4 pb-10">
+        <SearchBar value={q} onChange={setQ} loading={loading} count={hits.length} />
         <h2 className="mb-8 text-center text-sm text-foreground">Latest writeups</h2>
+        {hits.length === 0 && !loading && (
+          <p className="text-center text-muted-foreground">Nothing burning under “{q}”.</p>
+        )}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((p) => (
+          {hits.map((p) => (
             <Link
               key={p.slug}
               to="/writeups/$slug"
