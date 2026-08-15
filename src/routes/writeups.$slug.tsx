@@ -117,121 +117,147 @@ function Writeup() {
    * =========================================================
    */
 
-  useEffect(() => {
-    const article = document.querySelector(".md-body");
+  /*
+ * =========================================================
+ * CODE COPY BUTTONS
+ * =========================================================
+ */
 
-    if (!article) {
-      return;
-    }
+useEffect(() => {
+  const article = document.querySelector(".md-body");
 
-    const buttons =
-      article.querySelectorAll<HTMLButtonElement>(
-        "[data-copy-code]",
+  if (!article) {
+    return;
+  }
+
+  const buttons =
+    article.querySelectorAll<HTMLButtonElement>(
+      "[data-copy-code]",
+    );
+
+  const handlers = new Map<
+    HTMLButtonElement,
+    (event: MouseEvent) => void
+  >();
+
+  buttons.forEach((button) => {
+    const handler = (event: MouseEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const details = button.closest("details");
+      const code = details?.querySelector("code");
+
+      if (!code) {
+        return;
+      }
+
+      const text = code.textContent ?? "";
+      const original = button.textContent ?? "Copy";
+
+      /*
+       * Use the synchronous fallback FIRST.
+       * This preserves the browser's user activation.
+       */
+      const textarea =
+        document.createElement("textarea");
+
+      textarea.value = text;
+
+      textarea.setAttribute(
+        "readonly",
+        "",
       );
 
-    const handlers = new Map<
-      HTMLButtonElement,
-      (event: MouseEvent) => void
-    >();
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      textarea.style.top = "0";
+      textarea.style.width = "1px";
+      textarea.style.height = "1px";
+      textarea.style.opacity = "0";
 
-    buttons.forEach((button) => {
-      const handler = async (event: MouseEvent) => {
-        event.preventDefault();
-        event.stopPropagation();
+      document.body.appendChild(textarea);
 
-        const details = button.closest("details");
+      textarea.focus();
+      textarea.select();
 
-        const code =
-          details?.querySelector("code");
+      let copied = false;
 
-        if (!code) {
-          return;
-        }
+      try {
+        copied = document.execCommand("copy");
+      } catch {
+        copied = false;
+      }
 
-        const text = code.textContent ?? "";
+      document.body.removeChild(textarea);
 
-        let copied = false;
-
-        /*
-         * Try modern clipboard API first.
-         */
-        try {
-          if (
-            navigator.clipboard &&
-            window.isSecureContext
-          ) {
-            await navigator.clipboard.writeText(text);
-            copied = true;
-          }
-        } catch {
-          copied = false;
-        }
-
-        /*
-         * Fallback for environments where
-         * navigator.clipboard isn't available.
-         */
-        if (!copied) {
-          const textarea =
-            document.createElement("textarea");
-
-          textarea.value = text;
-
-          textarea.style.position = "fixed";
-          textarea.style.left = "-9999px";
-          textarea.style.top = "0";
-          textarea.style.opacity = "0";
-
-          document.body.appendChild(textarea);
-
-          textarea.focus();
-          textarea.select();
-          textarea.setSelectionRange(
-            0,
-            textarea.value.length,
-          );
-
-          try {
-            copied =
-              document.execCommand("copy");
-          } catch {
-            copied = false;
-          }
-
-          document.body.removeChild(textarea);
-        }
-
-        const original =
-          button.textContent ?? "Copy";
-
-        button.textContent = copied
-          ? "Copied!"
-          : "Failed";
+      /*
+       * If the synchronous method worked,
+       * we're done.
+       */
+      if (copied) {
+        button.textContent = "Copied!";
 
         window.setTimeout(() => {
           button.textContent = original;
         }, 1200);
-      };
 
-      handlers.set(button, handler);
+        return;
+      }
 
-      button.addEventListener(
-        "click",
-        handler,
-      );
-    });
+      /*
+       * Otherwise try the modern Clipboard API.
+       */
+      if (
+        navigator.clipboard &&
+        window.isSecureContext
+      ) {
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            button.textContent = "Copied!";
 
-    return () => {
-      handlers.forEach(
-        (handler, button) => {
-          button.removeEventListener(
-            "click",
-            handler,
-          );
-        },
-      );
+            window.setTimeout(() => {
+              button.textContent = original;
+            }, 1200);
+          })
+          .catch(() => {
+            button.textContent = "Failed";
+
+            window.setTimeout(() => {
+              button.textContent = original;
+            }, 1200);
+          });
+
+        return;
+      }
+
+      button.textContent = "Failed";
+
+      window.setTimeout(() => {
+        button.textContent = original;
+      }, 1200);
     };
-  }, [post]);
+
+    handlers.set(button, handler);
+
+    button.addEventListener(
+      "click",
+      handler,
+    );
+  });
+
+  return () => {
+    handlers.forEach(
+      (handler, button) => {
+        button.removeEventListener(
+          "click",
+          handler,
+        );
+      },
+    );
+  };
+}, [post]);
 
   return (
     <>
@@ -267,42 +293,44 @@ function Writeup() {
               TABLE OF CONTENTS
               ================================================= */}
 
-          <aside className="shrink-0 lg:sticky lg:top-24 lg:w-72">
+          <aside className="min-w-0 shrink-0 lg:sticky lg:top-24 lg:w-72">
 
-            <nav className="pixel-border bg-card p-4">
+            <nav className="pixel-border min-w-0 max-w-full overflow-hidden bg-card p-4">
 
               <p className="font-pixel text-[8px] text-muted-foreground">
                 TABLE OF CONTENTS
               </p>
 
-              <ul className="mt-4 space-y-2 text-sm">
+              <ul className="mt-4 min-w-0 max-w-full space-y-2 text-sm">
 
                 {post.toc.map((item) => (
                   <li
-                    key={item.id}
-                    style={{
-                      marginLeft:
-                        `${(item.level - 2) * 20}px`,
-                    }}
-                  >
+  key={item.id}
+  className="min-w-0 max-w-full"
+  style={{
+    marginLeft: `${Math.min((item.level - 2) * 20, 40)}px`,
+  }}
+>
 
                     <a
-                      href={`#${item.id}`}
-                      className={`
-                        block
-                        border-l-2
-                        pl-3
-                        transition-colors
-                        hover:text-primary
-                        ${
-                          active === item.id
-                            ? "border-primary text-primary"
-                            : "border-border text-muted-foreground"
-                        }
-                      `}
-                    >
-                      {item.heading}
-                    </a>
+  href={`#${item.id}`}
+  className={`
+    block
+    min-w-0
+    max-w-full
+    border-l-2
+    pl-3
+    transition-colors
+    hover:text-primary
+    ${
+      active === item.id
+        ? "border-primary text-primary"
+        : "border-border text-muted-foreground"
+    }
+  `}
+>
+  {item.heading}
+</a>
 
                   </li>
                 ))}
