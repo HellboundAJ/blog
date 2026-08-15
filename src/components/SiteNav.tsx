@@ -12,18 +12,18 @@ const links = [
 export function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b-2 border-border bg-background/90 backdrop-blur">
-      <nav className="mx-auto flex max-w-[88rem] items-center justify-between gap-4 px-4 py-3">
+      <nav className="mx-auto flex max-w-[88rem] flex-col items-center gap-2 px-4 py-3 sm:flex-row sm:justify-between sm:gap-4">
         <Link to="/" className="flex items-center gap-3">
           <img
             src={heart.url}
             alt="Hellbound"
             width={28}
             height={28}
-            className="pixelated flip360 h-[28px] w-[28px] object-contain"
+            className="pixelated flip360 h-6 w-6 object-contain sm:h-[28px] sm:w-[28px]"
           />
-          <span className="font-pixel text-[13px] text-foreground">Hellbound</span>
+          <span className="font-pixel text-[11px] text-foreground sm:text-[13px]">Hellbound</span>
         </Link>
-        <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 font-pixel text-[11px]">
+        <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-pixel text-[9px] sm:gap-x-5 sm:text-[11px]">
           {links.map((l) => (
             <li key={l.to}>
               <Link

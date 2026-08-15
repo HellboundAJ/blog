@@ -18,10 +18,10 @@ export function ScrollRail() {
   };
 
   const btn =
-    "flex h-10 w-10 items-center justify-center border-2 border-border bg-card font-pixel text-[10px] text-muted-foreground transition-colors hover:border-primary hover:text-primary";
+    "flex h-8 w-8 items-center justify-center border-2 border-border bg-card font-pixel text-[9px] text-muted-foreground transition-colors hover:border-primary hover:text-primary sm:h-10 sm:w-10 sm:text-[10px]";
 
   return (
-    <div className="fixed bottom-6 right-4 z-40 flex flex-col gap-2">
+    <div className="fixed bottom-4 right-2 z-40 flex flex-col gap-2 sm:bottom-6 sm:right-4">
       <button className={btn} onClick={toggle} aria-label="Toggle theme">
         {dark ? "☾" : "☀"}
       </button>
