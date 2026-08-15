@@ -67,7 +67,7 @@ function Writeup() {
                   <li
                     key={s.id}
                     style={{
-                      marginLeft: `${(s.level - 2) * 20}px`,
+                      marginLeft: `${(s.level - 1) * 20}px`,
                     }}
                   >
                     <a

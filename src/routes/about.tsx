@@ -18,7 +18,7 @@ export const Route = createFileRoute("/about")({
 
 function About() {
   return (
-    <PageShell title="About me">
+    <PageShell title="About">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-8 sm:flex-row sm:items-start">
         <img
           src={pfp}
@@ -30,18 +30,12 @@ function About() {
         <div className="space-y-4">
           <h2 className="ember-text text-sm">Hellbound</h2>
           <p className="text-muted-foreground">
-            I play CTFs and write down what worked, what didn't, and the dumb detour in between.
-            Mostly web and crypto. Occasionally something with a shell.
+            nil
           </p>
           <p className="text-muted-foreground">
-            This place is a notebook first and a blog second. No trackers, no popups, no newsletter.
-            Read what you need and leave.
+            lal
           </p>
-          <ul className="space-y-1 font-pixel text-[9px] text-muted-foreground">
-            <li>· focus — web exploitation, crypto</li>
-            <li>· tools — burp, python, too much coffee</li>
-            <li>· contact — github.com/Hellbound</li>
-          </ul>
+
         </div>
       </div>
     </PageShell>

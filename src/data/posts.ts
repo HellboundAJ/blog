@@ -69,7 +69,7 @@ export const posts: Post[] = Object.entries(files)
   .map(([path, raw]) => {
     const { meta, body } = parseFrontmatter(raw);
     const slug = path.split("/").pop()!.replace(/\.md$/, "");
-    const toc: TocItem[] = [...body.matchAll(/^(#{2,6})\s+(.+)$/gm)].map(
+    const toc: TocItem[] = [...body.matchAll(/^(#{1,6})\s+(.+)$/gm)].map(
   (m) => ({
     heading: (m[2] ?? "").trim(),
     id: slugify((m[2] ?? "").trim()),
