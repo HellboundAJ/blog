@@ -37,7 +37,7 @@
   --color-ember: var(--ember);
   --color-ash: var(--ash);
   --font-pixel: "Press Start 2P", monospace;
-  --font-mono: "VT323", "JetBrains Mono", monospace;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
 :root {
@@ -101,13 +101,13 @@
     scrollbar-color: var(--primary) var(--ash);
   }
 
-  body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--font-mono);
-    font-size: 1.15rem;
-    line-height: 1.7;
-  }
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.7;
+}
 
   h1,
   h2,
@@ -220,12 +220,12 @@
   animation: flicker 3.2s ease-in-out infinite;
 }
 
-/* Markdown article body (writeups rendered from /content/*.md) */
+/* Markdown article body */
 .md-body {
   font-family: var(--font-mono);
-  font-size: 1.2rem;
-  line-height: 1.9;
-  letter-spacing: 0.01em;
+  font-size: 1.08rem;
+  line-height: 1.85;
+  letter-spacing: 0;
 }
 
 .md-body h1,
@@ -236,23 +236,23 @@
 .md-body h6 {
   font-family: var(--font-pixel);
   color: var(--foreground);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .md-body h1 {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   margin-top: 3.5rem;
   margin-bottom: 1.5rem;
 }
 
 .md-body h2 {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   margin-top: 3rem;
   margin-bottom: 1.25rem;
 }
 
 .md-body h3 {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
 }
@@ -260,14 +260,9 @@
 .md-body h4,
 .md-body h5,
 .md-body h6 {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   margin-top: 2rem;
-  margin-bottom: 0.8rem;
-}
-
-.md-body p {
-  font-size: 1.2rem;
-  line-height: 1.9;
+  margin-bottom: 0.9rem;
 }
 
 .md-body p {
@@ -311,7 +306,7 @@
   border: 2px solid var(--border);
   background-color: var(--card);
   padding: 1.25rem;
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   color: var(--primary);
 }
