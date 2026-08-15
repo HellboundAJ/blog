@@ -66,25 +66,7 @@ function Writeup() {
         />
 
         <div className="mt-12 gap-10 lg:flex lg:items-start">
-          <article className="min-w-0 flex-1 space-y-10">
-            {post.sections.map((s) => (
-              <section key={s.id} id={s.id} className="scroll-mt-24">
-                <h2 className="text-xs text-foreground">{s.heading}</h2>
-                {s.body.map((b, i) => (
-                  <p key={i} className="mt-4 text-muted-foreground">
-                    {b}
-                  </p>
-                ))}
-                {s.code && (
-                  <pre className="pixel-border mt-5 overflow-x-auto bg-card p-4 text-sm text-primary">
-                    <code>{s.code}</code>
-                  </pre>
-                )}
-              </section>
-            ))}
-          </article>
-
-          <aside className="mt-12 shrink-0 lg:sticky lg:top-24 lg:mt-0 lg:w-60">
+          <aside className="shrink-0 lg:sticky lg:top-24 lg:w-60">
             <nav className="pixel-border bg-card p-4">
               <p className="font-pixel text-[8px] text-muted-foreground">TABLE OF CONTENTS</p>
               <ul className="mt-4 space-y-2 text-sm">
@@ -112,7 +94,26 @@ function Writeup() {
               </div>
             </nav>
           </aside>
+
+          <article className="mt-12 min-w-0 flex-1 space-y-10 lg:mt-0">
+            {post.sections.map((s) => (
+              <section key={s.id} id={s.id} className="scroll-mt-24">
+                <h2 className="text-xs text-foreground">{s.heading}</h2>
+                {s.body.map((b, i) => (
+                  <p key={i} className="mt-4 text-muted-foreground">
+                    {b}
+                  </p>
+                ))}
+                {s.code && (
+                  <pre className="pixel-border mt-5 overflow-x-auto bg-card p-4 text-sm text-primary">
+                    <code>{s.code}</code>
+                  </pre>
+                )}
+              </section>
+            ))}
+          </article>
         </div>
+
       </main>
       <Watcher />
     </>
