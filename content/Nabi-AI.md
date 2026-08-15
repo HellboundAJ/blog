@@ -89,6 +89,17 @@ TLDR;
 we use the baoAddr field to steal the keys and use the keys to read out the flag.
 
 
+### Source Code
 
+```python
+p = gcd([Ax^2 + Ay^2 - 1, Bx^2 + By^2 - 1, Gx^2 + Gy^2 - 1])
+assert is_prime(p)
+```
+
+## Exploit Script
+
+```bash
+curl -X POST "$URL"
+```
 
 
