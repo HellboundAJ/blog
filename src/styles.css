@@ -355,65 +355,51 @@
    ========================================================= */
 
 .md-body .code-block {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   margin-top: 1.5rem;
   border: 2px solid var(--border);
   background: var(--card);
   box-shadow: 4px 4px 0 0 var(--ash);
+  overflow: hidden;
 }
 
-
-/* Header */
 .md-body .code-block summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-
   cursor: pointer;
-
-  padding: 0.7rem 1rem;
-
+  padding: 0.55rem 0.85rem;
   font-family: var(--font-mono);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
-
   color: var(--foreground);
-
   user-select: none;
 }
 
-
-/* Hover */
 .md-body .code-block summary:hover {
   color: var(--primary);
 }
 
-
-/* Native arrow */
 .md-body .code-block summary::marker {
   color: var(--primary);
 }
 
-
-/* Language name */
 .md-body .code-language {
   font-family: var(--font-mono);
+  font-size: 0.9rem;
   font-weight: 700;
 }
 
-
-/* Copy button */
 .md-body .code-block button {
   border: 1px solid var(--border);
   background: var(--background);
-
   color: var(--muted-foreground);
-
-  padding: 0.25rem 0.6rem;
-
+  padding: 0.2rem 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.85rem;
-
+  font-size: 0.75rem;
   cursor: pointer;
 }
 
@@ -422,34 +408,38 @@
   color: var(--primary);
 }
 
-
-/* Divider when opened */
 .md-body .code-block[open] summary {
   border-bottom: 2px solid var(--border);
 }
 
-
-/* Code itself */
 .md-body .code-block pre {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   margin: 0;
-
   border: 0;
-
   background: transparent;
-
-  padding: 1.25rem;
-
+  padding: 1rem;
   overflow-x: auto;
-
+  overflow-y: hidden;
+  box-sizing: border-box;
   font-family: var(--font-mono);
-  font-size: 1rem;
-  line-height: 1.65;
-
+  font-size: 0.82rem;
+  line-height: 1.55;
   color: var(--foreground);
+  white-space: pre;
 }
 
 .md-body .code-block pre code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  max-width: none;
   color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: inherit;
+  line-height: inherit;
 }
 
 
