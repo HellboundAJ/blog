@@ -48,7 +48,6 @@ export const Route = createFileRoute("/writeups/$slug")({
   component: Writeup,
 });
 
-
 function Writeup() {
   const { post } = Route.useLoaderData();
 
@@ -56,15 +55,15 @@ function Writeup() {
     post.toc[0]?.id ?? "",
   );
 
-
-  /* =========================================================
-     TOC SCROLL TRACKING
-     ========================================================= */
+  /*
+   * =========================================================
+   * TOC SCROLL TRACKING
+   * =========================================================
+   */
 
   useEffect(() => {
     const updateActive = () => {
       const offset = 140;
-
       let current = post.toc[0]?.id ?? "";
 
       for (const item of post.toc) {
@@ -112,10 +111,11 @@ function Writeup() {
     };
   }, [post]);
 
-
-  /* =========================================================
-     CODE COPY BUTTONS
-     ========================================================= */
+  /*
+   * =========================================================
+   * CODE COPY BUTTONS
+   * =========================================================
+   */
 
   useEffect(() => {
     const article = document.querySelector(".md-body");
@@ -139,8 +139,7 @@ function Writeup() {
         event.preventDefault();
         event.stopPropagation();
 
-        const details =
-          button.closest("details");
+        const details = button.closest("details");
 
         const code =
           details?.querySelector("code");
@@ -149,26 +148,69 @@ function Writeup() {
           return;
         }
 
+        const text = code.textContent ?? "";
+
+        let copied = false;
+
+        /*
+         * Try modern clipboard API first.
+         */
         try {
-          await navigator.clipboard.writeText(
-            code.textContent ?? "",
+          if (
+            navigator.clipboard &&
+            window.isSecureContext
+          ) {
+            await navigator.clipboard.writeText(text);
+            copied = true;
+          }
+        } catch {
+          copied = false;
+        }
+
+        /*
+         * Fallback for environments where
+         * navigator.clipboard isn't available.
+         */
+        if (!copied) {
+          const textarea =
+            document.createElement("textarea");
+
+          textarea.value = text;
+
+          textarea.style.position = "fixed";
+          textarea.style.left = "-9999px";
+          textarea.style.top = "0";
+          textarea.style.opacity = "0";
+
+          document.body.appendChild(textarea);
+
+          textarea.focus();
+          textarea.select();
+          textarea.setSelectionRange(
+            0,
+            textarea.value.length,
           );
 
-          const original =
-            button.textContent ?? "Copy";
+          try {
+            copied =
+              document.execCommand("copy");
+          } catch {
+            copied = false;
+          }
 
-          button.textContent = "Copied!";
-
-          window.setTimeout(() => {
-            button.textContent = original;
-          }, 1200);
-        } catch {
-          button.textContent = "Failed";
-
-          window.setTimeout(() => {
-            button.textContent = "Copy";
-          }, 1200);
+          document.body.removeChild(textarea);
         }
+
+        const original =
+          button.textContent ?? "Copy";
+
+        button.textContent = copied
+          ? "Copied!"
+          : "Failed";
+
+        window.setTimeout(() => {
+          button.textContent = original;
+        }, 1200);
       };
 
       handlers.set(button, handler);
@@ -190,7 +232,6 @@ function Writeup() {
       );
     };
   }, [post]);
-
 
   return (
     <>
@@ -215,7 +256,6 @@ function Writeup() {
           </p>
 
         </header>
-
 
         {/* =================================================
             CONTENT + TOC
@@ -269,7 +309,6 @@ function Writeup() {
 
               </ul>
 
-
               {/* =================================================
                   TAGS
                   ================================================= */}
@@ -290,7 +329,6 @@ function Writeup() {
             </nav>
 
           </aside>
-
 
           {/* =================================================
               MARKDOWN ARTICLE
