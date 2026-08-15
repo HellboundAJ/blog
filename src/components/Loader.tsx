@@ -40,7 +40,7 @@ export function Loader() {
       <div
         className="relative"
         aria-hidden
-        style={{ width: "min(9rem, 46vw)", height: "min(9rem, 46vw)" }}
+        style={{ width: "min(11rem, 52vw)", height: "min(11rem, 52vw)" }}
       >
         {TRAIL.map((t, i) => (
           <div
@@ -58,10 +58,10 @@ export function Loader() {
               alt=""
               width={92}
               height={31}
-              className="pixelated absolute left-1/2 top-0 w-[64%] max-w-[92px]"
+              className="pixelated absolute left-1/2 top-0 w-[62%] max-w-[100px]"
               style={{
                 transformOrigin: "18% 50%",
-                transform: `translate(-14%, -50%) scaleX(-1) rotate(${t.bend}deg) scale(${t.scale})`,
+                transform: `translate(-50%, -50%) scaleX(-1) rotate(${t.bend}deg) scale(${t.scale})`,
               }}
             />
           </div>
