@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
-import { searchPosts } from "@/lib/search.functions";
+import { posts } from "@/data/posts";
 
 type Hit = {
   slug: string;
@@ -13,26 +11,43 @@ type Hit = {
   cover: string;
 };
 
-/** Debounced AJAX search over the writeups. */
 export function usePostSearch(initial: Hit[]) {
   const [q, setQ] = useState("");
   const [debounced, setDebounced] = useState("");
-  const run = useServerFn(searchPosts);
 
   useEffect(() => {
-    const t = setTimeout(() => setDebounced(q), 250);
+    const t = setTimeout(() => setDebounced(q), 200);
     return () => clearTimeout(t);
   }, [q]);
 
-  const query = useQuery({
-    queryKey: ["search", debounced],
-    queryFn: () => run({ data: { q: debounced } }),
-    enabled: debounced.trim().length > 0,
-  });
+  const search = debounced.trim().toLowerCase();
 
-  const hits: Hit[] = debounced.trim() ? (query.data?.hits ?? []) : initial;
+  const hits: Hit[] = search
+    ? posts
+        .filter(
+          (p) =>
+            p.title.toLowerCase().includes(search) ||
+            p.excerpt.toLowerCase().includes(search) ||
+            p.category.toLowerCase().includes(search) ||
+            p.tags.some((t) => t.toLowerCase().includes(search)),
+        )
+        .map(({ slug, title, date, category, tags, excerpt, cover }) => ({
+          slug,
+          title,
+          date,
+          category,
+          tags,
+          excerpt,
+          cover,
+        }))
+    : initial;
 
-  return { q, setQ, hits, loading: query.isFetching && debounced.trim().length > 0 };
+  return {
+    q,
+    setQ,
+    hits,
+    loading: false,
+  };
 }
 
 export function SearchBar({
@@ -50,6 +65,7 @@ export function SearchBar({
     <div className="mx-auto mb-10 w-full max-w-xl">
       <label className="pixel-border flex items-center gap-3 bg-card px-3 py-2 focus-within:border-primary">
         <span className="font-pixel text-[10px] text-primary">{">"}</span>
+
         <input
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -57,6 +73,7 @@ export function SearchBar({
           aria-label="Search writeups"
           className="w-full bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
         />
+
         <span className="font-pixel text-[8px] text-muted-foreground">
           {loading ? "..." : `${count}`}
         </span>
