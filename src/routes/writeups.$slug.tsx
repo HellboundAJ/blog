@@ -28,7 +28,7 @@ export const Route = createFileRoute("/writeups/$slug")({
 
 function Writeup() {
   const { post } = Route.useLoaderData();
-  const [active, setActive] = useState(post.sections[0]?.id ?? "");
+  const [active, setActive] = useState(post.toc[0]?.id ?? "");
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -37,7 +37,7 @@ function Writeup() {
       },
       { rootMargin: "-20% 0px -70% 0px" },
     );
-    post.sections.forEach((s) => {
+    post.toc.forEach((s) => {
       const el = document.getElementById(s.id);
       if (el) obs.observe(el);
     });
@@ -70,7 +70,7 @@ function Writeup() {
             <nav className="pixel-border bg-card p-4">
               <p className="font-pixel text-[8px] text-muted-foreground">TABLE OF CONTENTS</p>
               <ul className="mt-4 space-y-2 text-sm">
-                {post.sections.map((s) => (
+                {post.toc.map((s) => (
                   <li key={s.id}>
                     <a
                       href={`#${s.id}`}
@@ -95,25 +95,11 @@ function Writeup() {
             </nav>
           </aside>
 
-          <article className="mt-12 min-w-0 flex-1 space-y-10 lg:mt-0">
-            {post.sections.map((s) => (
-              <section key={s.id} id={s.id} className="scroll-mt-24">
-                <h2 className="text-xs text-foreground">{s.heading}</h2>
-                {s.body.map((b, i) => (
-                  <p key={i} className="mt-4 text-muted-foreground">
-                    {b}
-                  </p>
-                ))}
-                {s.code && (
-                  <pre className="pixel-border mt-5 overflow-x-auto bg-card p-4 text-sm text-primary">
-                    <code>{s.code}</code>
-                  </pre>
-                )}
-              </section>
-            ))}
-          </article>
+          <article
+            className="md-body mt-12 min-w-0 flex-1 lg:mt-0"
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
         </div>
-
       </main>
       <Watcher />
     </>
