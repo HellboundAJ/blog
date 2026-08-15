@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import pfp from "@/assets/pfp.jpg.asset.json";
+import pfp from "@/assets/pfp.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({

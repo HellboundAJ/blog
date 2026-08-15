@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import heart from "@/assets/heart.png.asset.json";
+import heart from "@/assets/heart.png";
 
 const links = [
   { to: "/", label: "Main" },

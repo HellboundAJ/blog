@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import eyeball from "@/assets/eyeball.png.asset.json";
+import eyeball from "@/assets/eyeball.png";
 
 /**
  * Loading screen: a single pixel eyeball dragging its nerves around a circle.

@@ -1,5 +1,5 @@
 import { marked } from "marked";
-import writeupWeb from "@/assets/writeup-web.jpg.asset.json";
+import writeupWeb from "@/assets/writeup-web.jpg";
 
 /**
  * Posts are plain markdown files in /content.

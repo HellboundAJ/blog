@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import watcher from "@/assets/watcher.png.asset.json";
+import watcher from "@/assets/watcher.png";
 
 /**
  * The Watcher rises from the bottom-left once the reader has scrolled far
