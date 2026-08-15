@@ -31,18 +31,35 @@ function Writeup() {
   const [active, setActive] = useState(post.toc[0]?.id ?? "");
 
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) if (e.isIntersecting) setActive(e.target.id);
-      },
-      { rootMargin: "-20% 0px -70% 0px" },
-    );
-    post.toc.forEach((s) => {
-      const el = document.getElementById(s.id);
-      if (el) obs.observe(el);
-    });
-    return () => obs.disconnect();
-  }, [post]);
+  const updateActive = () => {
+    const offset = 140;
+    let current = post.toc[0]?.id ?? "";
+
+    for (const item of post.toc) {
+      const el = document.getElementById(item.id);
+      if (!el) continue;
+
+      const top = el.getBoundingClientRect().top;
+
+      if (top <= offset) {
+        current = item.id;
+      } else {
+        break;
+      }
+    }
+
+    setActive(current);
+  };
+
+  updateActive();
+  window.addEventListener("scroll", updateActive, { passive: true });
+  window.addEventListener("resize", updateActive);
+
+  return () => {
+    window.removeEventListener("scroll", updateActive);
+    window.removeEventListener("resize", updateActive);
+  };
+}, [post]);
 
   return (
     <>
