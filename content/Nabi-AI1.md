@@ -29,13 +29,14 @@ On opening the instance, We can find 3 different urls.
 - **OpenBao** — the secret storing service
 - **Flag service** — where we eventually retrieve the flag
 
-Along with the challenge we were given a handout file `config.hcl`
 
+
+Along with the challenge we were given a handout file `config.hcl`
 I started by checking what Nabi actually has access to in OpenBao.
 
 On reading the config file, It tells us that OpenBao is being used to store the application's secrets.
 
-There are two relavant secrets:
+There are two relavant secrets:-
 
 - `secret/data/nabi` — contains the API key used by Nabi.
 - `secret/data/flag` — contains the **API key needed by the flag service**.
@@ -48,8 +49,7 @@ But we don't have Nabi's OpenBao token yet.
 
 ![alt text](si.jpg)
 
-So the rough plan became:
-
+So the rough plan became:-
 
 Get access to OpenBao
 
@@ -69,7 +69,6 @@ Use it on the flag service
 ## Stealing the OpenBao Token
 
 Since the token isn't given to us directly, I started inspecting the Nabi application with DevTools.
-
 Further inspecting I noticed that the application had a **source map** :D Made it easier!
 
 Looking through `chat.ts`, I came across the request type used for sending messages:
@@ -131,7 +130,7 @@ Because we gave it our webhook, the server sent its OpenBao request to us, inclu
 
 Now we have finally have Nabi's OpenBao token.
 
-![alt text](finsh.jpg)
+![alt text](finsh.png)
 
 ## Getting the Flag API Key
 
@@ -141,7 +140,6 @@ secret/data/+
 
 
 Now we can just use the OpenBao token we have to read `secret/data/flag`.
-
 So we can send a request with the x-vault-token header with the token:
 
 ```http
@@ -154,7 +152,7 @@ X-Vault-Token: nabi-local-app-token-9c3e680272d5ca0ac9112f7b71d1bf
 
 The response gives us:- 
 
-"FLAG_API_KEY": "sk-flag-44569147aa693f5154e7"
+``"FLAG_API_KEY": "sk-flag-44569147aa693f5154e7"``
 
 
 ## Getting the flag
@@ -169,7 +167,7 @@ Host: inst-13f40d898042f5bb-flag-service-nabi-ai.chal.uiuc.tf
 X-Api-Token: sk-flag-44569147aa693f5154e7
 ```
 
-Giving us the response:
+Giving us the response:-
 
 ![alt text](image4.png)
 
