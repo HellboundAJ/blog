@@ -3,7 +3,7 @@ title: "UIUCTF OSINT Challenges"
 date: "2026/08/24"
 category: "OSINT"
 tags: "osint, instagram, social-media"
-cover: "secret-account.png"
+cover: "nk7sg8abb0eg1.png"
 excerpt: "Collection of osint challenges from uiuctf"
 ---
 
