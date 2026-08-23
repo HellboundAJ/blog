@@ -146,7 +146,7 @@ export const posts: Post[] = Object.entries(files)
       excerpt: meta["excerpt"] ?? "",
       cover,
       toc,
-      html: marked.parse(body) as string,
+      html: `<pre>${escapeHtml(body)}</pre>`,
     };
   })
   .sort((a, b) => b.date.localeCompare(a.date));
