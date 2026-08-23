@@ -118,7 +118,7 @@ Because we gave it our webhook, the server sent its OpenBao request to us, inclu
 Now we have finally have Nabi's OpenBao token. 
 
 
-![alt text](finish.jpg)
+![alt text](finsh.jpg)
 
 
 ## Getting the Flag API Key
@@ -195,7 +195,7 @@ print(requests.get(flag, headers={"x-api-token": key}).text)
 
 ## tl;dr
 
-```text
+
                 Nabi AI
                    │
                    │
@@ -222,7 +222,7 @@ print(requests.get(flag, headers={"x-api-token": key}).text)
                    │
                    ▼
                  FLAG
-```
+
 
 
 The main issue was that baoAddr was client-controlled. By pointing it at our webhook, we could get Nabi to send its OpenBao token to us. We then used that token to read secret/data/flag, got the FLAG_API_KEY, and used it on the flag service.
