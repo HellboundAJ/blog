@@ -48,6 +48,7 @@ So the important part is that Nabi already has the permission needed to read the
 But we don't have Nabi's OpenBao token yet.
 
 ![alt text](si.jpg)
+So the rough plan became:-
 
 Get access to OpenBao
 
