@@ -1,13 +1,20 @@
 ---
-title: "Secret Account"
+title: "UIUCTF OSINT Challenges"
 date: "2026/08/24"
 category: "OSINT"
 tags: "osint, instagram, social-media"
 cover: "secret-account.png"
-excerpt: "Here is Bink's Instagram profile, can you find his secret Instagram account?"
+excerpt: "Collection of osint challenges from uiuctf"
 ---
 
 # Secret Account
+**Category:** OSINT
+**Points:** 50
+**Solves:** 139
+**Author** DJ Wang
+
+
+> Here is Bink's Instagram profile, can you find his secret Instagram account?
 
 ## Recon
 
