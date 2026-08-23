@@ -46,7 +46,7 @@ export function SiteNav() {
 export function SiteFooter() {
   return (
     <footer className="mt-20 border-t-2 border-border py-8 text-center text-sm text-muted-foreground">
-      <p className="font-pixel text-[8px]">HELLBOUND · burn bright, log everything</p>
+      <p className="font-pixel text-[8px]">HELLBOUND · burn bright, crawl tight</p>
     </footer>
   );
 }
