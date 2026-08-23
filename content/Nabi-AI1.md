@@ -48,20 +48,17 @@ So the important part is that Nabi already has the permission needed to read the
 But we don't have Nabi's OpenBao token yet.
 
 ![alt text](si.jpg)
-a
+
 So the rough plan became:-
 
 Get access to OpenBao
-
-        ↓
+    ↓
 
 Read secret/data/flag
-
-        ↓
+    ↓
 
 Get FLAG_API_KEY
-
-        ↓
+    ↓
 
 Use it on the flag service
 
