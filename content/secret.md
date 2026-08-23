@@ -110,14 +110,18 @@ The flag is sitting right there:
 ---
 
 ## Recon
+![alt text](clue.png)
 
-We only have a screenshot to work with, so let's start with the obvious thing: **reverse image searching it**.
+We only have this screenshot to work with, so let's start with the obvious thing: **reverse image searching it**.
 
-By reverse searching it clearly shows the game to be *The Legend of Zelda: A Link to the Past*, but that alone doesn't narrow things down much :(. There are a tons of videos about the game, and searching for the game normally gives us way too many results.
+By reverse searching it clearly shows the game to be *The Legend of Zelda: A Link to the Past*, but that alone doesn't narrow things down much :( There are a tons of videos about the game, and searching for the game normally gives us way too many results.
 
 At first I thought this was going to be pretty straightforward.
 
+![alt text](reverse.png)
+
 Yeah... nope.
+
 
 ## Looking at the Screenshot
 
@@ -127,10 +131,12 @@ The game itself is running in a weird-looking **4:3 layout**, and the sides have
 
 That border caught my attention because it doesn't really look like part of the game's normal graphics, And not many videos had that border
 
+![alt text](clue.jpeg)
+
 So, what is it?
 
-A bit of searching around shows that this is what the game looks like when running in **4:3 on the Nintendo Switch Online version** of the game.
 
+A bit of searching around shows that this is what the game looks like when running in **4:3 on the Nintendo Switch Online version** of the game.
 The Nintendo Switch Online app was released in 2019, so now we have another little piece of information to work with.
 
 But the challenge description gives us an even better clue :D
@@ -158,11 +164,16 @@ Since we know the platform, title and approximate year, we can narrow the search
 
 `The Legend of Zelda: A Link to the Past intitle:"30" anniversary after:2021-01-01 before:2022-01-01`
 
+
+![alt text](dork.png)
+
 The search results finally start looking interesting.
 
 There are a couple of videos about the 30th anniversary, manually checking few we can see that one of the videos actually has what we need :D
 
 The footage matches the screenshot, including that weird patterned border on the sides. So we finally have the original video.
+
+![alt text](tommy.png)
 
 The channel is **Tommy the gamemaster**, which gives us the first part of the flag.
 
@@ -174,6 +185,7 @@ Jumping to 8:07, we can see the player with their health bar on screen.
 
 Counting the full hearts gives us **15 hearts**.
 
-`uiuctf{tommy_15}`
+`Flag:- uiuctf{tommy_15}`
 
 Pretty straightforward once we noticed that the border wasn't actually part of the game :D
+Thank you, we will meet again <3
