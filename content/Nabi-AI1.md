@@ -10,12 +10,10 @@ excerpt: "Collection of web challenges from uiuctf."
 # Nabi AI
 
 **Category:** Web
-
 **Difficulty:** Medium
-
 **Points:** 62
-
 **Solves:** 130
+**Author** Cameron
 
 ## Description
 
