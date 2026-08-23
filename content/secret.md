@@ -114,7 +114,7 @@ The flag is sitting right there:
 
 We only have this screenshot to work with, so let's start with the obvious thing: **reverse image searching it**.
 
-By reverse searching it clearly shows the game to be *The Legend of Zelda: A Link to the Past*, but that alone doesn't narrow things down much :( There are a tons of videos about the game, and searching for the game normally gives us way too many results.
+By reverse searching it clearly shows the game to be *The Legend of Zelda: A Link to the Past*, but that alone doesn't narrow things down much :( There are a tons of videos about the game, and searching for the game normally leads to endless videos.
 
 At first I thought this was going to be pretty straightforward.
 
@@ -160,7 +160,7 @@ Instead of searching through hundreds of random videos, let's make YouTube do so
 
 ## Time for a YouTube Dork
 
-Since we know the platform, title and approximate year, we can narrow the search down with:
+Since we know the platform, title and approximate period, we can narrow the search down with:
 
 `The Legend of Zelda: A Link to the Past intitle:"30" anniversary after:2021-01-01 before:2022-01-01`
 
@@ -181,9 +181,8 @@ Now we just need to check what happens at **8:07**.
 
 ## Checking the Timestamp
 
-Jumping to 8:07, we can see the player with their health bar on screen.
-
-Counting the full hearts gives us **15 hearts**.
+Jumping to 8:07, we can see the player with 15 hearts :D
+and that should give us the final flag
 
 `Flag:- uiuctf{tommy_15}`
 
