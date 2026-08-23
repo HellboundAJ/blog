@@ -127,14 +127,13 @@ Checking the webhook we can see that we actually got a request :D
 
 Because we gave it our webhook, the server sent its OpenBao request to us, including the token it was using.
 
-Now we have finally have Nabi's OpenBao token.
+Now we finally have Nabi's OpenBao token.
 
 ![alt text](finsh.png)
 
 ## Getting the Flag API Key
 
 From the `config.hcl`, we know that Nabi's token can read:
-
 ``secret/data/+``
 
 
@@ -160,19 +159,17 @@ The handout tells us that the flag service wants the API key in the x-api-token 
 
 So we send our one final request ;)
 
-
+```http
 GET / HTTP/2
 Host: inst-13f40d898042f5bb-flag-service-nabi-ai.chal.uiuc.tf
 X-Api-Token: sk-flag-44569147aa693f5154e7
-
+```
 
 Giving us the response:-
 
 ![alt text](image4.png)
 
-With the flag:
-
-
+With the flag:-
 ``uiuctf{lets_just_go_back_to_a_monolith_983c1ec97484}``
 
 
