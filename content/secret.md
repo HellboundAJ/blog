@@ -25,11 +25,10 @@ Let's see what we have.
 ![Bink's Instagram profile](hyaa.png)
 
 Nothing too interesting on the profile itself, but he follows a few people.
-
 One of them is `bbyrule_`.
 
-The profile picture looks pretty similar too. Coincidence? Maybe, maybe not :D
 
+The profile picture looks pretty similar too. Coincidence? Maybe, maybe not :D
 Let's check it out.
 
 
@@ -42,12 +41,11 @@ Looking through `bbyrule_`'s profile, we find a post.
 
 The post itself doesn't really give us anything useful.
 
-But Instagram has a famouse section :D, Da reel section...
-
+But Instagram has a famous section :D, Da reel section...
+And there it is.
 
 ![bbyrule_ reel](reel.png)
 
-And there it is.
 
 Closing watching the reel, we can find ``hyaalink`` in the roblox game.
 Could this be a lead?
