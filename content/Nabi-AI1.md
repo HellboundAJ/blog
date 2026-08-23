@@ -52,7 +52,7 @@ But we don't have Nabi's OpenBao token yet.
 
 So the rough plan became:
 
-```text
+
 Get access to OpenBao
 
         ↓
@@ -66,7 +66,7 @@ Get FLAG_API_KEY
         ↓
 
 Use it on the flag service
-```
+
 
 ## Stealing the OpenBao Token
 
@@ -107,7 +107,7 @@ An option field `baoAddr` which is used to set the OpenBao Url :D, which is sent
 
 Since we can change it, I wanted to see what would happen if we gave it our own url.
 
-Time to pull our webhook url.
+Time to pull our webhook url :)
 
 I used Burp Suite to change a normal chat request and added:
 
@@ -139,9 +139,8 @@ Now we have finally have Nabi's OpenBao token.
 
 From the `config.hcl`, we know that Nabi's token can read:
 
-```text
 secret/data/+
-```
+
 
 Now we can just use the OpenBao token we have to read `secret/data/flag`.
 
@@ -155,11 +154,10 @@ X-Vault-Token: nabi-local-app-token-9c3e680272d5ca0ac9112f7b71d1bf
 
 ![alt text](image3.png)
 
-The response gives us:
+The response gives us:- 
 
-```json
 "FLAG_API_KEY": "sk-flag-44569147aa693f5154e7"
-```
+
 
 ## Getting the flag
 
@@ -179,9 +177,9 @@ Giving us the response:
 
 With the flag:
 
-```text
-uiuctf{lets_just_go_back_to_a_monolith_983c1ec97484}
-```
+
+``uiuctf{lets_just_go_back_to_a_monolith_983c1ec97484}``
+
 
 ## Solve Script
 
@@ -234,7 +232,7 @@ print(
 
 ## tl;dr
 
-```text
+
                 Nabi AI
                    │
                    │
@@ -261,7 +259,7 @@ print(
                    │
                    ▼
                   FLAG
-```
+
 
 The main issue was that `baoAddr` was client-controlled. By pointing it at our webhook, we could get Nabi to send its OpenBao token to us. We then used that token to read `secret/data/flag`, got the `FLAG_API_KEY`, and used it on the flag service.
 
