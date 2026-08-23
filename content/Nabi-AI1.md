@@ -4,7 +4,7 @@ date: "2026/08/15"
 category: "Web"
 tags: "ctf"
 cover: "lock.gif"
-excerpt: "hello this is a weird chall"
+excerpt: "Collection of web challenges from uiuctf."
 ---
 
 # Nabi AI
