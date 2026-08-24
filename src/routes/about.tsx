@@ -8,7 +8,7 @@ export const Route = createFileRoute("/about")({
       { title: "About — Hellbound" },
       { name: "description", content: "Who Hellbound is: CTF player, loves web, night owl." },
       { property: "og:title", content: "About — Hellbound" },
-      { property: "og:description", content: "CTF player, writeup hoarder, night owl." },
+      { property: "og:description", content: "CTF player, loves web, night owl." },
       { property: "og:image", content: pfp },
       { name: "twitter:image", content: pfp },
     ],
@@ -30,10 +30,12 @@ function About() {
         <div className="space-y-4">
           <h2 className="ember-text text-sm">Hellbound</h2>
           <p className="text-muted-foreground">
-            nil
+            Hello guys :D, I'm Aaron John aka Hellbound, and I'm part of <span className="text-primary">teambi0s</span>.
+            Love exploiting da WEB than anything and spend rest of my time doing OSINT coz why not ;)
           </p>
           <p className="text-muted-foreground">
-            lal
+            besides the ctfs, i love playing chess (definitely not a nerd i swear), and have a rating of 2200 in rapid in chess.com.
+            Ba Byeeew :)
           </p>
 
         </div>
