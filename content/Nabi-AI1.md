@@ -99,7 +99,7 @@ export type SendMessageResponse = {
 };
 ```
 
-An option field `baoAddr` which is used to set the OpenBao Url :D, which is sent by us and tells Nabi which OpenBao URL to use.
+An optional field `baoAddr` which is used to set the OpenBao Url :D, which is sent by us and tells Nabi which OpenBao URL to use.
 
 Since we can change it, I wanted to see what would happen if we gave it our own url.
 
